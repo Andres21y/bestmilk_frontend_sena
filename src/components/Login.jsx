@@ -24,15 +24,16 @@ const Login = () => {
     const { email, password, isLoading, errors } = form;
 
     const handleChange = (e) => {
-
+        
         const { id, value } = e.target;
-
+        
         setForm(prev => ({
             ...prev,
             [id]: value,
             // Limpiamos solo el error del campo que está cambiando
             errors: { ...prev.errors, [id]: null }
         }));
+        console.log(form);
     };
 
     const handleSubmit = async (e) => {
@@ -71,90 +72,87 @@ const Login = () => {
     };
 
     return (
-        <section>
-            <div className={styles['login_container']}>
-                <div className={styles['login_card']}>
+        <section className={styles['login_container']}>
+            <div className={styles['login_card']}>
 
-                    <div className={styles['image_section']}>
-                        <div className={styles['image_content']}>
-                            <h3>Bienvenido</h3>
-                            <p>Accede a tu cuenta para continuar con una experiencia personalizada y segura. </p>
-                        </div>
+                <div className={styles['image_section']}>
+                    <div className={styles['image_content']}>
+                        <h3>Bienvenido</h3>
+                        <p>Accede a tu cuenta para continuar con una experiencia personalizada y segura. </p>
+                    </div>
+                </div>
+
+                <div className={styles['form_section']}>
+
+                    <div className={styles['form_title']}>
+                        <h4>Iniciar Sesión</h4>
+                        <p>Ingresa tus credenciales para acceder</p>
                     </div>
 
-                    <div className={styles['form_section']}>
+                    <form id="loginForm" onSubmit={handleSubmit} noValidate>
+                        <div className={styles['input_field']}>
+                            <MdEmail size={32} />
+                            <input
+                                id="email"
+                                type="email"
+                                className={errors?.email ? styles.invalid : styles.validate}
+                                value={email}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label htmlFor="email">Correo Electrónico</label>
+                        </div>
+                        {errors?.email && <span className={styles.error_text}>{errors.email}</span>}
 
-                        <div className={styles['form_title']}>
-                            <h4>Iniciar Sesión</h4>
-                            <p>Ingresa tus credenciales para acceder</p>
+                        <div className={styles['input_field']}>
+                            <MdLock size={32} />
+                            <input
+                                id="password"
+                                type="password"
+                                className={errors?.password ? styles.invalid : styles.validate}
+                                value={password}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label htmlFor="password">Contraseña</label>
+                        </div>
+                        {errors.password && <span className={styles.error_text}>{errors.password}</span>}
+
+                        <div style={{ margin: '1.5rem 0' }}>
+                            <label>
+                                <input type="checkbox" id="rememberMe" />
+                                <span>Recordarme</span>
+                            </label>
                         </div>
 
-                        <form id="loginForm" onSubmit={handleSubmit} noValidate>
-                            <div className={styles['input_field']}>
-                                <MdEmail size={32} />
-                                <input
-                                    id="email"
-                                    type="email"
-                                    className={errors?.email ? styles.invalid : styles.validate}
-                                    value={email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <label htmlFor="email">Correo Electrónico</label>
-                            </div>
-                            {errors?.email && <span className={styles.error_text}>{errors.email}</span>}
+                        <button
+                            className={`${styles['btn']} ${styles['btn_login']}`}
+                            type="submit"
+                            disabled={isLoading}
+                        >
+                            <span className={styles['login-text']}>
+                                Iniciar Sesión
+                            </span>
+                        </button>
 
-                            <div className={styles['input_field']}>
-                                <MdLock size={32} />
-                                <input
-                                    id="password"
-                                    type="password"
-                                    className={errors?.password ? styles.invalid : styles.validate}
-                                    value={password}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <label htmlFor="password">Contraseña</label>
-                            </div>
-                            {errors.password && <span className={styles.error_text}>{errors.password}</span>}
+                    </form>
 
-                            <div style={{ margin: '1.5rem 0' }}>
-                                <label>
-                                    <input type="checkbox" id="rememberMe" />
-                                    <span>Recordarme</span>
-                                </label>
-                            </div>
-
-                            <button
-                                className={`${styles['btn']} ${styles['btn_login']}`}
-                                type="submit"
-                                disabled={isLoading}
-                            >
-                                <span className={styles['login-text']}>
-                                    Iniciar Sesión
-                                </span>
-                            </button>
-
-                        </form>
-
-                        <div className={styles['forgot-password']}>
-                            <a onClick={() => navigate('/forgot-password')}>¿Olvidaste tu contraseña?</a>
-                        </div>
-
-                        <div className={`${styles["register-link"]} ${styles["grey-text"]} ${styles["darken-3"]}`}>
-                            <p>
-                                ¿No tienes una cuenta?{" "}
-                                <a href="#">
-                                    Regístrate aquí
-                                </a>
-                            </p>
-                        </div>
-
+                    <div className={styles['forgot-password']}>
+                        <a onClick={() => navigate('/forgot-password')}>¿Olvidaste tu contraseña?</a>
                     </div>
+
+                    <div className={`${styles["register-link"]} ${styles["grey-text"]} ${styles["darken-3"]}`}>
+                        <p>
+                            ¿No tienes una cuenta?{" "}
+                            <a href="#">
+                                Regístrate aquí
+                            </a>
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </section>
-
     );
 };
 

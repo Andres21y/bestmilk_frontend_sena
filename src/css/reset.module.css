@@ -1,0 +1,88 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* La tarjeta del formulario */
+.formCard {
+    background: var(--secondary-color);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.formCard h3 {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+/* Grupo de input */
+.inputGroup {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+form {
+    gap: 1rem;
+    display: inline-grid;
+}
+
+.inputGroup input {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 1px solid var(--text-blur);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    background-color: var(--secondary-color);
+}
+
+.formCard input:focus {
+    border-color: var(--tertiary-color);
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+}
+
+/* Botón profesional */
+.submitBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submitBtn:hover {
+    background-color: var(--light-accent)
+}
+
+.submitBtn:active {
+    transform: scale(0.98);
+}
+
+.submitBtn:disabled {
+    background-color: #cbd5e0;
+    cursor: not-allowed;
+}
+
+/* Mensajes de ayuda opcionales */
+.hint {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 1rem;
+}

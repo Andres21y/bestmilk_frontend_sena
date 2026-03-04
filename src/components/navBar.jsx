@@ -5,6 +5,7 @@ import styles from '../css/navBar.module.css'
 
 const NavBar = () => {
     const { isAuthenticated, logout } = useAuth();
+ 
 
     return (
         <nav className={styles['container']}>
