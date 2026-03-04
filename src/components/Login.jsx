@@ -2,15 +2,14 @@ import { useState } from 'react';
 import axios from 'axios';
 import styles from '../css/login.module.css'
 import { MdEmail, MdLock } from "react-icons/md";
-
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/authContext';
+import { validateLoginForm } from '../utils/validation';
 
 const Login = () => {
 
     const { login } = useAuth();
-
 
     const navigate = useNavigate();
 
@@ -19,49 +18,58 @@ const Login = () => {
         email: '',
         password: '',
         isLoading: false,
+        errors: {},
     });
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.id]: e.target.value });
-    };
+    const { email, password, isLoading, errors } = form;
 
+    const handleChange = (e) => {
+
+        const { id, value } = e.target;
+
+        setForm(prev => ({
+            ...prev,
+            [id]: value,
+            // Limpiamos solo el error del campo que está cambiando
+            errors: { ...prev.errors, [id]: null }
+        }));
+    };
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        setForm({ ...form, isLoading: true })
+        // Validaciones Locales antes de llamar a la API
+        const { isValid, errors: validationErrors } = validateLoginForm(form.email, form.password);
+
+        if (!isValid) {
+            setForm(prev => ({ ...prev, errors: validationErrors }));
+            toast.error("Please, check error");
+            return;
+        }
+
+        // Iniciamos carga
+        setForm(prev => ({ ...prev, isLoading: true }));
 
         try {
-            // Hacemos la petición al backend 
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
                 email: form.email,
                 password: form.password
             });
 
             login(response.data);
-
             toast.success(`Welcome ${response.data.user.name}`);
 
-            setTimeout(() => { navigate('/home'); }, 2000);
+            setTimeout(() => navigate('/home'), 1500);
 
         } catch (error) {
-            if (error.response) {
-                // El servidor respondió con un error (400, 401, 500)
-                console.log("Error de respuesta:", error.response.data);
-                alert(error.response.data.msg);
-            } else if (error.request) {
-                // La petición se hizo pero no hubo respuesta (Servidor apagado o CORS)
-                console.log("Error de petición (No hay respuesta):", error.request);
-                alert("El servidor no responde. Revisa si está encendido y el CORS configurado.");
-            } else {
-                // Error al configurar la petición
-                console.log("Error configuración:", error.message);
-            }
+            const errorMsg = error.response?.data?.msg || "Error de conexión";
+            toast.error(errorMsg);
         } finally {
-            setForm({ ...form, isLoading: false })
+            setForm(prev => ({ ...prev, isLoading: false }));
         }
     };
+
     return (
         <section>
             <div className={styles['login_container']}>
@@ -81,32 +89,34 @@ const Login = () => {
                             <p>Ingresa tus credenciales para acceder</p>
                         </div>
 
-                        <form id="loginForm" onSubmit={handleSubmit}>
+                        <form id="loginForm" onSubmit={handleSubmit} noValidate>
                             <div className={styles['input_field']}>
                                 <MdEmail size={32} />
                                 <input
                                     id="email"
                                     type="email"
-                                    className={styles.validate}
-                                    value={form.email}
+                                    className={errors?.email ? styles.invalid : styles.validate}
+                                    value={email}
                                     onChange={handleChange}
                                     required
                                 />
                                 <label htmlFor="email">Correo Electrónico</label>
                             </div>
+                            {errors?.email && <span className={styles.error_text}>{errors.email}</span>}
 
                             <div className={styles['input_field']}>
                                 <MdLock size={32} />
                                 <input
                                     id="password"
                                     type="password"
-                                    className={styles.validate}
-                                    value={form.password}
+                                    className={errors?.password ? styles.invalid : styles.validate}
+                                    value={password}
                                     onChange={handleChange}
                                     required
                                 />
                                 <label htmlFor="password">Contraseña</label>
                             </div>
+                            {errors.password && <span className={styles.error_text}>{errors.password}</span>}
 
                             <div style={{ margin: '1.5rem 0' }}>
                                 <label>
@@ -118,7 +128,7 @@ const Login = () => {
                             <button
                                 className={`${styles['btn']} ${styles['btn_login']}`}
                                 type="submit"
-                                disabled={form.isLoading}
+                                disabled={isLoading}
                             >
                                 <span className={styles['login-text']}>
                                     Iniciar Sesión
