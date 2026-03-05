@@ -57,8 +57,7 @@ const Login = () => {
                 email: form.email,
                 password: form.password
             });
-            console.log(response);
-            
+         
 
             login(response.data);
             toast.success(`Welcome ${response.data.user.name}`);
