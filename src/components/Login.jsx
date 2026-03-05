@@ -33,7 +33,7 @@ const Login = () => {
             // Limpiamos solo el error del campo que está cambiando
             errors: { ...prev.errors, [id]: null }
         }));
-        console.log(form);
+
     };
 
     const handleSubmit = async (e) => {
@@ -57,6 +57,8 @@ const Login = () => {
                 email: form.email,
                 password: form.password
             });
+            console.log(response);
+            
 
             login(response.data);
             toast.success(`Welcome ${response.data.user.name}`);
