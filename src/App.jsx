@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/forgot';
 import ResetPassword from './components/resetPassword';
 import NavBar from './components/navBar';
+import Signup from './components/Signup';
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
 
           <Routes>
             {/* Rutas generales */}
-            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
