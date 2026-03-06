@@ -48,6 +48,9 @@ export const validateSignupForm = (data) => {
     // Password
     if (!data.password) errors.password = "Password is required";
     else if (data.password.length < 6) errors.password = "Minimum 6 characters";
+    else if (!passwordRegex.test(data.password)) {
+        errors.password = "It must include uppercase letters, lowercase letters, numbers, and special characters";
+    }
 
     // Confirmar Password
     if (data.confirmPassword !== data.password) {
