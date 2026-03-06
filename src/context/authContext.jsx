@@ -23,14 +23,32 @@ export const AuthProvider = ({ children }) => {
         localStorage.clear();
     }, []);
 
+    const signup = useCallback(async (formData) => {
+        try {
+            // Hacemos la petición al backend
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, formData);
+
+            // OPCIONAL: Si tu backend loguea al usuario automáticamente tras registrarse:
+            if (response.data.token && response.data.user) {
+                login(response.data);
+            }
+
+            return response.data; // Retornamos la respuesta para que el componente la maneje
+        } catch (error) {
+            // Re-lanzamos el error para que el componente Signup.jsx lo capture y muestre el Toast
+            throw error;
+        }
+    }, [login]);
 
     // Evitamos re-renders innecesarios en los consumidores del context con useMemo
     const data = useMemo(() => ({
         userData,
         isAuthenticated: !!userData,
         login,
-        logout
-    }), [userData, login, logout]);
+        logout,
+        signup 
+    }), [userData, login, logout, signup]);
+
 
     return (
         <AuthContext.Provider value={data}>
