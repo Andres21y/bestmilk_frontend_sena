@@ -1,0 +1,111 @@
+.signupContainer {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.signupCard {
+    background: var(--secondary-color);
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.formSection {
+    flex: 2;
+    padding: 40px;
+}
+
+.imageSection {
+    flex: 1;
+    background: #667eea;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+@media (max-width: 800px) {
+    .imageSection { display: none; }
+}
+
+.title { color: #2d3748; margin-bottom: 5px; font-weight: 700; }
+.subtitle { color: #718096; margin-bottom: 30px; }
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .row { grid-template-columns: 1fr; }
+}
+
+.inputField {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.icon {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    color: #a0aec0;
+    font-size: 20px;
+}
+
+.inputField input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.inputField input:focus {
+    border-color: #667eea;
+}
+
+.error {
+    color: #e53e3e;
+    font-size: 11px;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+}
+
+.signupBtn {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.signupBtn:hover { background: var(--light-accent); }
+
+.checkboxContainer {
+    margin: 15px 0;
+    font-size: 14px;
+    color: var(--text-blur);
+}
+
+.welcomeImage {
+    width: 120px;
+    margin-top: 20px;
+}

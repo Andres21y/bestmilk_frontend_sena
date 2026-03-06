@@ -58,7 +58,6 @@ const Login = () => {
                 password: form.password
             });
          
-
             login(response.data);
             toast.success(`Welcome ${response.data.user.name}`);
 

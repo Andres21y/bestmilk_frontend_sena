@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { MdPerson, MdEmail, MdPhone, MdLock, MdPersonOutline } from 'react-icons/md';
 import { validateSignupForm } from '../utils/validation';
+import { useAuth } from '../context/authContext';
 import styles from '../css/Signup.module.css';
 
 const Signup = () => {
+
     const navigate = useNavigate();
+    const { signup } = useAuth();
+
     const [form, setForm] = useState({
         firstName: '',
         lastName: '',
@@ -42,21 +45,26 @@ const Signup = () => {
         setForm(prev => ({ ...prev, isLoading: true }));
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/register`, {
+            // Invocamos la función del contexto
+            await signup({
                 name: `${form.firstName} ${form.lastName}`,
                 email: form.email,
                 password: form.password,
                 phone: form.phone
             });
 
-            toast.success("¡Cuenta creada con éxito!");
-            navigate('/login');
+            toast.success("Registration successful! Welcome.");
+            navigate('/home');
+
         } catch (error) {
-            toast.error(error.response?.data?.msg || "Error al registrarse");
+            // Errores de API (ej. email ya registrado)
+            const msg = error.response?.data?.msg || "Error en el servidor";
+            toast.error(msg);
         } finally {
             setForm(prev => ({ ...prev, isLoading: false }));
         }
     };
+
 
     return (
         <section className={styles.signupContainer}>
