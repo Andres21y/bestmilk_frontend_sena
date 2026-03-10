@@ -30,6 +30,10 @@ export const validateLoginForm = (email, password) => {
 export const validateSignupForm = (data) => {
     const errors = {};
 
+    if (!data.nit) errors.nit = "NIT es requerido";
+    else if (!/^\d{5,15}$/.test(data.nit)) errors.nit = "NIT inválido (solo números)";
+
+
     if (!data.firstName) errors.firstName = "First name is required";
     else if (!nameRegex.test(data.firstName)) errors.firstName = "Invalid name (letters only)";
 
@@ -40,10 +44,13 @@ export const validateSignupForm = (data) => {
     if (!data.email) errors.email = "Email is required";
     else if (!emailRegex.test(data.email)) errors.email = "Invalid email format";
 
-    // Teléfono (Opcional, pero si se pone, debe ser numérico)
-    if (data.phone && !/^\d{7,15}$/.test(data.phone)) {
-        errors.phone = "Invalid phone (7-15 digits)";
-    }
+    // Teléfono (opcional)
+    if (data.phone && !/^\d{7,15}$/.test(data.phone)) errors.phone = "Teléfono inválido (7-15 dígitos)";
+
+    // Dirección
+    if (!data.address) errors.address = "Dirección requerida";
+    else if (data.address.length < 5) errors.address = "Dirección demasiado corta";
+
 
     // Password
     if (!data.password) errors.password = "Password is required";
