@@ -28,13 +28,16 @@ export const AuthProvider = ({ children }) => {
         setUserData(null);
     }, []);
 
+    // useMemo se usa para memorizar un valor calculado y evitar que se
+    // vuelva a crear en cada render, a menos que cambien sus dependencias.
     const value = useMemo(() => ({
         userData,
         isAuthenticated: !!userData,
-        isAdmin: userData?.user?.role === 'admin',
-        isActive: userData?.user?.active === true,
+        isAdmin: userData?.user?.rol === 'ADMIN',
+        isActive: userData?.user?.state === 'ACTIVE',
         login,
         logout
+
     }), [userData, login, logout]);
 
     return (
