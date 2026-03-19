@@ -1,6 +1,6 @@
 import { MdEmail, MdLock } from "react-icons/md";
-import styles from '../css/login.module.css';
-import { useLoginForm } from '../utils/hooks/useLoginForm';
+import styles from '../../css/login.module.css';
+import { useLoginForm } from '../../hooks/useLoginForm';
 
 const LoginForm = () => {
     const {

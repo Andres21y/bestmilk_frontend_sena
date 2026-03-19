@@ -3,13 +3,15 @@ import { AuthProvider } from './context/authContext';
 import PrivateRoute from './context/privetRoute';
 import Home from './components/Home'
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/forgot';
 import ResetPassword from './components/resetPassword';
-import NavBar from './components/navBar';
 import Landing from './viwes/Landing';
 import Login from './viwes/Login';
 import Signup from './viwes/Signup';
+import Admin from './viwes/Admin';
+import UsersTable from './components/usersTable';
+import CattleList from './components/cattleList';
+import NotAvailable from './components/erros/noaviable';
 
 
 function App() {
@@ -18,8 +20,6 @@ function App() {
     <>
       <AuthProvider>
         <Router>
-
-          <NavBar />
 
           <Routes>
 
@@ -30,10 +30,21 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
 
+
             {/* Rutas protegidas */}
             <Route element={<PrivateRoute />}>
-              <Route path="/home" element={<Home />} />
+              <Route path="/admin" element={<Admin />}>
+                <Route path="home" element={<NotAvailable />} />
+                <Route path="users" element={<UsersTable />} />
+                <Route path="cattles" element={<CattleList />} />
+                <Route path="dashboard" element={<NotAvailable />} />
+                <Route path="production" element={<NotAvailable />} />
+                <Route path="health" element={<NotAvailable />} />
+                <Route path="vaccine" element={<NotAvailable />} />
+                <Route path="setting" element={<NotAvailable />} />
+              </Route>
             </Route>
+
 
             <Route path="*" element={<Navigate to="/" />} />
 
@@ -42,7 +53,7 @@ function App() {
         </Router>
       </AuthProvider >
 
-     {/*<ToastContainer position="top-left" autoClose={3000} /> */}
+
     </>
   )
 }
