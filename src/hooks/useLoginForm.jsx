@@ -64,9 +64,22 @@ export const useLoginForm = () => {
             setTimeout(() => navigate('/admin'), 1000);
 
         } catch (error) {
-            const errorMsg = error.response?.data?.msg || "Connection error, try again later";
+            let errorMsg;
+
+            if (error.response) {
+                // El servidor respondió con un código de estado (400, 401, 500, etc.)
+                errorMsg = error.response.data?.msg || "Unexpected server error";
+            } else if (error.request) {
+                // La petición se hizo pero no hubo respuesta (servidor caído, CORS, etc.)
+                errorMsg = "Connection error, try again later";
+            } else {
+                // Algo pasó al preparar la petición
+                errorMsg = "Request setup error";
+            }
+
             console.error("Login attempt failed:", errorMsg);
             toast.error(errorMsg);
+
         } finally {
             setForm(prev => ({ ...prev, isLoading: false }));
         }
