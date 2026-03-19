@@ -1,0 +1,12 @@
+const Benefits = () => (
+  <section>
+    <h2>Beneficios</h2>
+    <ul>
+      <li>Leche fresca y de calidad</li>
+      <li>Producción responsable</li>
+      <li>Bienestar animal garantizado</li>
+    </ul>
+  </section>
+);
+
+export default Benefits;

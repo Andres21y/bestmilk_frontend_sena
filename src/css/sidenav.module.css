@@ -1,0 +1,36 @@
+.nav_menu {
+    background: none;
+}
+
+
+
+.navMenu,
+.logoutBtn svg {
+    color: var(--secondary-color);
+}
+
+.navMenu {
+    flex: 1;
+    padding: 1rem;
+    border-block: 1px solid var(--text-blur);
+}
+
+.navMenu svg {
+    color: var(--secondary-color);
+    padding-right: .7rem;
+}
+
+
+.navLink,
+.activeLink {
+    display: flex;
+    padding: .7rem;
+    margin-bottom: 1rem;
+    color: #ecfdf5;
+    text-decoration: none;
+}
+
+.activeLink {
+    background-color: #059669;
+    font-weight: bold;
+}

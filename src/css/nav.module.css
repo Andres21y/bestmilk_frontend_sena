@@ -1,29 +1,70 @@
 .container {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 1rem;
+}
+
+/* Botón hamburguesa solo visible en mobile */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .btns {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
-.btns a {
-    text-decoration: none;
-    color: var(--primary-color);
+/* Estilos comunes para links y botones */
+.btns a,
+.btns button {
+  text-decoration: none; /* quita el subrayado */
+  color: #333;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease; /* efecto suave */
 }
 
-button {
-    font-size: 16px;
-    border: none;
-    background: none;
-}
-
+/* Hover: cambio de color y subrayado animado */
 .btns a:hover,
 .btns button:hover {
-    color: var(--accent-color);
+  color: #0077cc;
+  transform: scale(1.05); /* efecto de zoom */
+}
+
+/* Active: cuando se hace clic */
+.btns a:active,
+.btns button:active {
+  color: #005fa3;
+  transform: scale(0.95);
+}
+
+/* Mobile first: menú oculto por defecto */
+@media (max-width: 767px) {
+  .hamburger {
+    display: block;
+  }
+
+  .btns {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 66px;
+    right: 0px;
+    background: white;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    z-index: 100;
+  }
+
+  .btns.open {
+    display: flex;
+  }
 }
