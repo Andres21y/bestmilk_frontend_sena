@@ -19,14 +19,11 @@ const NavBar = () => {
     ],
     "/login": [
       { type: "link", to: "/signup", label: "Registrarse" },
-      { type: "link", to: "/", icon: <FaHome size={24} /> }
+      { type: "link", to: "/", icon: <FaHome size={24} />}
     ],
     "/signup": [
       { type: "link", to: "/login", label: "Iniciar sesión" },
       { type: "link", to: "/", icon: <FaHome size={24} /> }
-    ],
-    "/dashboard": [
-      { type: "button", onClick: logout, label: "Cerrar Sesión" }
     ]
   };
 

@@ -37,5 +37,22 @@ export const useUser = () => {
         }
     };
 
-    return { users, loading, removeUser, refresh: fetchUsers };
+    const editUser = async (id, updatedData) => {
+        try {
+            const data = await adminService.updateUser(id, updatedData);
+
+            // Actualizamos el estado local para reflejar los cambios instantáneamente
+            setUsers(prev => prev.map(user => user._id === id ? { ...user, ...updatedData } : user));
+
+            console.info(`User ${id} updated successfully by admin`);
+            toast.success("User updated successfully");
+            return true; // Para cerrar el modal
+        } catch (error) {
+            const msg = error.response?.data?.msg || "Failed to update user";
+            toast.error(msg);
+            return false;
+        }
+    };
+
+    return { users, loading, removeUser, refresh: fetchUsers, editUser };
 };

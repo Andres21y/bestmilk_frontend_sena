@@ -1,5 +1,9 @@
 .container {}
 
+.responsive_wrapper {
+    margin-top: 4rem;
+    overflow: hidden;
+}
 .table_header {
     margin-bottom: 1.5rem;
 }
@@ -128,9 +132,6 @@
 }
 
 
-.responsive_wrapper {
-    margin-top: 4rem;
-}
 
 
 /* --- DESKTOP --- */

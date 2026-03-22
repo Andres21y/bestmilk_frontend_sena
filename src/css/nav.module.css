@@ -23,20 +23,23 @@
 /* Estilos comunes para links y botones */
 .btns a,
 .btns button {
-  text-decoration: none; /* quita el subrayado */
+  text-decoration: none;
+  /* quita el subrayado */
   color: #333;
   font-weight: 500;
   background: none;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease; /* efecto suave */
+  transition: all 0.3s ease;
+  /* efecto suave */
 }
 
 /* Hover: cambio de color y subrayado animado */
 .btns a:hover,
 .btns button:hover {
   color: #0077cc;
-  transform: scale(1.05); /* efecto de zoom */
+  transform: scale(1.05);
+  /* efecto de zoom */
 }
 
 /* Active: cuando se hace clic */
@@ -48,6 +51,8 @@
 
 /* Mobile first: menú oculto por defecto */
 @media (max-width: 767px) {
+
+
   .hamburger {
     display: block;
   }

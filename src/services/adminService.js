@@ -23,6 +23,16 @@ export const adminService = {
             console.error("Delete error:", error);
             throw new Error(failed, error);
         }
+    },
+    // Actualizar un usuario
+    updateUser: async (id, userData) => {
+        try {
+            const { data } = await api.put(`/admin/users/${id}`, userData);
+            return data;
+        } catch (error) {
+            console.error(`Error in adminService.updateUser for ID ${id}:`, error.message);
+            throw error;
+        }
     }
 };
 

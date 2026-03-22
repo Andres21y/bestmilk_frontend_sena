@@ -1,7 +1,7 @@
 .signup_container {
-    padding-bottom: 1rem;
     display: grid;
     place-items: center;
+    padding: 2rem 0;
 }
 
 .signup_card {

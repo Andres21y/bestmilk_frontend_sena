@@ -1,13 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import LoginForm from '../components/forms/loginFom';
 import styles from '../css/login.module.css';
+import NavBar from '../components/navBar';
 
 const Login = () => {
-  
+
   const navigate = useNavigate();
 
   return (
     <section className={styles['login_container']}>
+
+      
       <div className={styles['login_card']}>
         <div className={styles['image_section']}>
           <div className={styles['image_content']}>

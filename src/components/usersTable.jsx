@@ -2,10 +2,15 @@ import { useAuth } from '../context/authContext';
 import { useUser } from '../hooks/useUser';
 import styles from '../css/users.module.css'
 import { FaSpinner, FaTrash, FaUserEdit } from 'react-icons/fa';
+import { useState } from 'react';
+import Modal from '../components/modals/modal'
+import EditUserForm from './forms/editUserFrom';
 
 const UsersTable = () => {
-    const { users, loading, removeUser } = useUser();
+    const { users, loading, removeUser, editUser } = useUser();
     const { userData } = useAuth();
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     // Verificamos si es administrador para mostrar/ocultar acciones críticas
     const isAdmin = userData?.user?.rol === 'ADMIN';
@@ -16,6 +21,15 @@ const UsersTable = () => {
             <p>Loading data from database...</p>
         </div>
     );
+
+    const handleEditClick = (user) => {
+        setSelectedUser(user);
+        setIsEditModalOpen(true);
+    };
+    const handleSaveUpdate = async (id, data) => {
+        const success = await editUser(id, data);
+        if (success) setIsEditModalOpen(false); // Cerramos el modal si se guardó bien
+    };
 
     return (
         <div className={styles.container}>
@@ -48,7 +62,7 @@ const UsersTable = () => {
                                 <td data-label="NIT" className={styles.hideMobile}>{user.nit}</td>
                                 <td data-label="Status">
                                     <span className={user.state ? styles.activeBadge : styles.pendingBadge}>
-                                        {user.state? 'ACTIVE' : 'PENDING'}
+                                        {user.state ? 'ACTIVE' : 'PENDING'}
                                     </span>
                                 </td>
 
@@ -58,7 +72,7 @@ const UsersTable = () => {
                                         <button
                                             className={styles.editBtn}
                                             title="Edit user"
-                                            onClick={() => alert('Edit feature coming soon')}
+                                            onClick={() => handleEditClick(user)}
                                         >
                                             <FaUserEdit />
                                         </button>
@@ -77,6 +91,19 @@ const UsersTable = () => {
                         ))}
                     </tbody>
                 </table>
+                <Modal
+                    isOpen={isEditModalOpen}
+                    onClose={() => setIsEditModalOpen(false)}
+                    title="Edit Personnel Information"
+                >
+                    {selectedUser && (
+                        <EditUserForm
+                            user={selectedUser}
+                            onSave={handleSaveUpdate}
+                            isLoading={loading}
+                        />
+                    )}
+                </Modal>
             </div>
         </div>
     );

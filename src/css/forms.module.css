@@ -69,3 +69,66 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+
+/*---EDIT FORM --*/
+.edit_user_editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.edit_user_field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.edit_user_field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.edit_user_field input,
+.edit_user_field select {
+  padding: 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.edit_user_checkboxField {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.edit_user_infoBox {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.edit_user_submitBtn {
+  background: #059669;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit_user_submitBtn:hover {
+  background: #047857;
+}
+
+.edit_user_submitBtn:disabled {
+  background: #9ca3af;
+}
